@@ -1,8 +1,12 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#Technology used
+_React.js,Css,React Router Dom,Lazy loading in React ,and I also user axious for api calling._
 
-Currently, two official plugins are available:
+#About:
+-please full fill all the empty area first
+-calling an api the api will take the data from user then show the quiz category wise 
+-if user click on quit button then he render to home page.
+-click on next page user go to next page 
+-if user doesnot select any option and click on next page he will get an errror.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

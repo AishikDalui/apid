@@ -1,15 +1,17 @@
 
 // import reactLogo from './assets/react.svg'
+import { useState ,lazy,Suspense} from 'react'
 import axios from 'axios'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import './App.css'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
 import Home from './Pages/Home/Home'
-import Quiz from './Pages/Quiz/Quiz'
-import Result from './Pages/Result/Result'
-import { useState } from 'react'
+// import Quiz from './Pages/Quiz/Quiz'
+// import Result from './Pages/Result/Result'
 
+const Quiz=lazy(()=>import('./Pages/Quiz/Quiz'));
+const Result=lazy(()=>import('./Pages/Result/Result'))
 
 function App() {
   const [questions, setQuestions] = useState();
@@ -20,12 +22,12 @@ function App() {
     const { data } = await axios.get(
       `https://opentdb.com/api.php?amount=10${
         category && `&category=${category}`
-      }${difficulty && `&difficulty=${difficulty}`}&type=multiple`
+      }${difficulty && `&difficulty=${difficulty.toLowerCase()}`}`,
     );
 
     setQuestions(data.results);
-  };
-  
+  };
+
 
   return (
     <Router>
@@ -38,15 +40,18 @@ function App() {
         <Route path='/' element={<Home name={name} setName={setName} 
         fetchQuestions={fetchQuestions} />} />
 
-        <Route path='/quiz' element={<Quiz
+        <Route path='/quiz' element={<Suspense fallback={<div>loading...</div>}><Quiz
               name={name}
               questions={questions}
               score={score}
               setScore={setScore}
               setQuestions={setQuestions}
-            />}
+            /></Suspense>}
         />
-        <Route path='/result'  element={<Result/>}/>
+        <Route path='/result'  element={<Suspense fallback={<div>loading..</div>}><Result 
+        name={name} 
+        score={score} 
+        setScore={setScore}/></Suspense>}/>
 
       </Routes>
       </div>
